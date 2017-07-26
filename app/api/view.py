@@ -1,6 +1,6 @@
 from flask import request, Blueprint, redirect
 from flask import jsonify
-from enferno.extensions import client
+from app.extensions import client
 
 api = Blueprint('api', __name__)
 

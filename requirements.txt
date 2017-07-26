@@ -2,3 +2,6 @@ flask
 flask_pymongo
 flask_cors
 flask_sslify
+bs4
+pymongo
+urllib3
