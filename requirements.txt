@@ -5,3 +5,4 @@ flask_sslify
 bs4
 pymongo
 urllib3
+livereload

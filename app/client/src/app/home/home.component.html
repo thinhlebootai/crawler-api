@@ -1,37 +1,52 @@
 <div>
-  <h1 x-large class="sample-content">Your Content Here</h1>
-
-  <hr>
-
+  <h1 >Demo crawler</h1>
   <div>
-    For hot module reloading run
-    <pre>npm run start:hmr</pre>
+    <h4>Input url</h4>
+    <div class="col-md-4 p-n" style="display: flex;">
+        <input class="form-control col-md-8" #domain
+          placeholder="Submit your url here..."
+          autofocus>
+        <button (click)="send(domain.value)" class="btn btn-primary col-md-4">Submit Value</button>
+    </div>
+    <div class="content ">
+      <div>
+        <h4>Title</h4>
+        <div>
+          {{ title }}
+        </div>
+      </div>
+      <div>
+        <h4>Abstract</h4>
+        <div>
+          {{ abstract }}
+        </div>
+      </div>
+      <div>
+        <h4>Topic</h4>
+        <div>
+          {{ topic }}
+        </div>
+      </div>
+      <div>
+        <h4>Content</h4>
+        <div>
+          {{ content }}
+        </div>
+      </div>
+      <div>
+        <h4>Datetime</h4>
+        <div>
+          {{ datetime }}
+        </div>
+      </div>
+      <div>
+        <h4>image</h4>
+        <div>
+          <img src="{{image}}" alt="">
+        </div>
+      </div>
+
+
+    </div>
   </div>
-
-  <hr>
-
-  <div>
-    <h4>Local State</h4>
-
-    <form (ngSubmit)="submitState(localState.value)" autocomplete="off">
-
-      <input
-        [value]="localState.value"
-        (input)="localState.value = $event.target.value"
-        placeholder="Submit Local State to App State"
-        autofocus>
-
-      <button>Submit Value</button>
-    </form>
-    <!--
-        <input type="text" [value]="localState.value" (input)="localState.value = $event.target.value" autofocus>
-        Rather than wiring up two-way data-binding ourselves with [value] and (input)
-        we can use Angular's [(ngModel)] syntax
-        <input type="text" name="textInput" [(ngModel)]="localState.value" autofocus>
-      -->
-
-    <pre>this.localState = {{ localState | json }}</pre>
-
-  </div>
-
 </div>

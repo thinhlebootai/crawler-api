@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 
 from flask import Flask
@@ -11,8 +10,8 @@ from flask_sslify import SSLify
 
 
 def create_app(config_object=ProdConfig):
-    app = Flask(__name__)
-    CORS(app)
+    app = Flask(__name__, static_url_path="", static_folder="./client/dist",
+                template_folder="./client/dist")
     # SSLify(app)
     app.config.from_object(config_object)
     register_extensions(app)
@@ -27,6 +26,5 @@ def register_extensions(app):
 
 def register_blueprints(app):
     app.register_blueprint(api, url_prefix='/api')
+    app.register_blueprint(root, url_prefix='/')
     return None
-
-

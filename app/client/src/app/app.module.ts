@@ -31,6 +31,9 @@ import { XLargeDirective } from './home/x-large';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
+import {LoginComponent} from "./login/login.component";
+import {ShareService} from "./service/login.service";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -51,10 +54,9 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
-    AboutComponent,
-    HomeComponent,
     NoContentComponent,
-    XLargeDirective
+    HomeComponent,
+    LoginComponent
   ],
   /**
    * Import Angular's modules.
@@ -63,6 +65,7 @@ type StoreType = {
     BrowserModule,
     FormsModule,
     HttpModule,
+    NgbModule.forRoot(),
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   /**
@@ -70,7 +73,8 @@ type StoreType = {
    */
   providers: [
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    ShareService,
   ]
 })
 export class AppModule {

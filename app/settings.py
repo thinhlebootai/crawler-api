@@ -17,6 +17,7 @@ class ProdConfig(Config):
     DEBUG_TB_ENABLED = False  # Disable Debug toolbar
     HOST = '0.0.0.0'
     MONGO_DBNAME = 'css_data'
+    TEMPLATES_AUTO_RELOAD = False
 
 
 class DevConfig(Config):
@@ -28,4 +29,6 @@ class DevConfig(Config):
     ASSETS_DEBUG = True  # Don't bundle/minify static assets
     CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
     MONGO_DBNAME = 'css_data'
+    TEMPLATES_AUTO_RELOAD = True
+    MONGO_HOST = '46.101.137.23'
 

@@ -1,57 +1,42 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-
-import { AppState } from '../app.service';
-import { Title } from './title';
-import { XLargeDirective } from './x-large';
-
+/**
+ * Created by ThinhPC on 7/27/2017.
+ */
+import { Component, OnInit } from '@angular/core';
+import { ShareService } from '../service/login.service';
 @Component({
-  /**
-   * The selector is what angular internally uses
-   * for `document.querySelectorAll(selector)` in our index.html
-   * where, in this case, selector is the string 'home'.
-   */
-  selector: 'home',  // <home></home>
-  /**
-   * We need to tell Angular's Dependency Injection which providers are in our app.
-   */
-  providers: [
-    Title
-  ],
-  /**
-   * Our list of styles in our component. We may add more to compose many styles together.
-   */
+  selector: 'home',
   styleUrls: [ './home.component.css' ],
-  /**
-   * Every Angular template is first compiled by the browser before Angular runs it's compiler.
-   */
   templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-  /**
-   * Set our default values
-   */
-  public localState = { value: '' };
-  /**
-   * TypeScript public modifiers
-   */
-  constructor(
-    public appState: AppState,
-    public title: Title
-  ) {}
+  public title: string;
+  public abstract: string;
+  public topic: string;
+  public content: string;
+  public datetime: string;
+  public image: string;
+  constructor(private _shareSerice: ShareService) {}
 
-  public ngOnInit() {
-    console.log('hello `Home` component');
-    /**
-     * this.title.getData().subscribe(data => this.data = data);
-     */
-  }
 
-  public submitState(value: string) {
-    console.log('submitState', value);
-    this.appState.set('value', value);
-    this.localState.value = '';
+  public ngOnInit() { }
+
+  public send(domain) {
+    if (domain == '') {
+      domain = 'https://www.heise.de/newsticker/meldung/Adobe-verabschiedet-sich-von-Flash-2020-ist-Schluss-3783264.html';
+    }
+    this._shareSerice.sendDomain(domain).subscribe((res) => {
+        try {
+          let json = JSON.parse(res['_body']);
+          this.title = json.title;
+          this.abstract = json.abstract;
+          this.topic = json.topic;
+          this.content = json.content;
+          this.datetime = json.datetime;
+          this.image = json.image;
+        } catch (ex) {
+
+        }
+    });
+
   }
 }

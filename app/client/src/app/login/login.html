@@ -1,0 +1,9 @@
+<div class="login-page">
+  <div class="form">
+    <form class="login-form">
+      <input type="text" placeholder="username" #username/>
+      <input type="password" placeholder="password" #password/>
+      <button [disabled]="onLoginStatus" (click)="onLogin(username.value, password.value)">login</button>
+    </form>
+  </div>
+</div>
