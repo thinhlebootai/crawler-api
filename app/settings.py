@@ -22,7 +22,7 @@ class ProdConfig(Config):
 
 class DevConfig(Config):
     """Development configuration."""
-    HOST= '0.0.0.0'
+    HOST = '0.0.0.0'
     ENV = 'dev'
     DEBUG = True
     DEBUG_TB_ENABLED = True
