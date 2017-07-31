@@ -75,8 +75,12 @@ def test():
 @api.route('/login', methods=['POST'])
 def login_api():
     json = request.json
-    username = json['username']
-    password = json['password']
+    if json is None:
+        return jsonify({'result': 'error, in json'})
+    if json['username'] and json['username'] is not None:
+        username = json['username']
+    if json['password'] and json['password'] is not None:
+        password = json['password']
 
     if username is not None and password is not None:
         query = {'username': username, 'password': password}
