@@ -69,7 +69,7 @@ def index(method):
 
 @api.route('/', methods=['GET'])
 def test():
-    return send_file('index.html')
+    return send_file('./client/dist/index.html')
 
 
 @api.route('/login', methods=['POST'])
