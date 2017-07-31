@@ -83,10 +83,9 @@ def login_api():
         password = json['password']
 
     if username is not None and password is not None:
-        query = {'username': "thinhlx1993", 'password': "ce3c2364942b980cf473dcda7a2ce296"}
-        if username == 'thinhlx1993' and password == 'ce3c2364942b980cf473dcda7a2ce296':
-        # login = client.db.user.find_one(query)
-        # if login is not None:
+        query = {'username': username, 'password': password}
+        login = client.db.user.find_one(query)
+        if login is not None:
             return jsonify({'result': 'success'})
         else:
             return jsonify({'result': 'fail'})

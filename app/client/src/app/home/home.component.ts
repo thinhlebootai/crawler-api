@@ -21,9 +21,6 @@ export class HomeComponent implements OnInit {
   public ngOnInit() { }
 
   public send(domain) {
-    if (domain == '') {
-      domain = 'https://www.heise.de/newsticker/meldung/Adobe-verabschiedet-sich-von-Flash-2020-ist-Schluss-3783264.html';
-    }
     this._shareSerice.sendDomain(domain).subscribe((res) => {
         try {
           let json = JSON.parse(res['_body']);
