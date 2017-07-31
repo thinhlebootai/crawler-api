@@ -26,5 +26,5 @@ def register_extensions(app):
 
 def register_blueprints(app):
     app.register_blueprint(api, url_prefix='/api')
-    app.register_blueprint(root, url_prefix='/')
+    # app.register_blueprint(root, url_prefix='/')
     return None
