@@ -74,12 +74,17 @@ def test():
 
 @api.route('/get_all/<method>', methods=['GET'])
 def get_all_element(method):
+    list = []
     if method == 'voice':
         data = client.db.voice.find()
-        return jsonify({'result': data})
+        for item in data:
+            list.append(item)
+        return jsonify({'result': list})
     if method == 'bootai':
         data = client.db.bootai.find()
-        return jsonify({'result': data})
+        for item in data:
+            list.append(item)
+        return jsonify({'result': list})
 
 
 @api.route('/login', methods=['POST'])
