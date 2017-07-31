@@ -34,8 +34,16 @@ def index(method):
         domain = request.form['domain']
     else:
         domain = ''
+    if request.form['abstract']:
+        abstract = request.form['abstract']
+    else:
+        domain = ''
+    if request.form['topic']:
+        topic = request.form['topic']
+    else:
+        domain = ''
 
-    if title == image == datetime == content == '':
+    if title == image == datetime == content == abstract == topic == '':
         return jsonify({"status": "Can't blank"})
     else:
         posts = {
@@ -43,7 +51,9 @@ def index(method):
             "title": title,
             "image": image,
             "datetime": datetime,
-            "content": content
+            "content": content,
+            "topic": topic,
+            "abstract": abstract
         }
 
     try:
