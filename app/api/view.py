@@ -72,6 +72,12 @@ def test():
     return send_file('./client/dist/index.html')
 
 
+@api.route('/get_all', methods=['GET'])
+def get_all_element():
+    data = client.db.bootai.find()
+    return jsonify({'result': data})
+
+
 @api.route('/login', methods=['POST'])
 def login_api():
     json = request.json

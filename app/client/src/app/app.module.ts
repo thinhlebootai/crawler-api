@@ -34,7 +34,8 @@ import '../styles/headings.css';
 import {LoginComponent} from "./login/login.component";
 import {ShareService} from "./service/login.service";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import {ListingComponent} from "./listing/listing.component";
+import { NgxDatatableModule} from '@swimlane/ngx-datatable';
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
@@ -56,7 +57,8 @@ type StoreType = {
     AppComponent,
     NoContentComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    ListingComponent
   ],
   /**
    * Import Angular's modules.
@@ -66,6 +68,7 @@ type StoreType = {
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
+    NgxDatatableModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   /**

@@ -5,6 +5,7 @@ import {RequestOptions, Headers} from "@angular/http";
 export class AppConfig {
   public static host = '';
   public static login = AppConfig.host +'/api/login'
+  public static getAll = AppConfig.host +'/api/get_all'
   public static domain = AppConfig.host +'/api/getdomain';
   public static authedOptions: RequestOptions;
 

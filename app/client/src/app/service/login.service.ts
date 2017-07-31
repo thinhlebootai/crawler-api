@@ -22,4 +22,8 @@ export class ShareService {
     let body = {domain: domain};
     return this.http.post(AppConfig.domain, JSON.stringify(body), AppConfig.getExtHeader());
   }
+
+  public getAll(): Observable<any> {
+    return this.http.get(AppConfig.getAll, AppConfig.getExtHeader());
+  }
 }
