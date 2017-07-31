@@ -24,6 +24,6 @@ export class ShareService {
   }
 
   public getAll(): Observable<any> {
-    return this.http.get(AppConfig.getAll, AppConfig.getExtHeader());
+    return this.http.get(`${AppConfig.getAll}/bootai`, AppConfig.getExtHeader());
   }
 }
