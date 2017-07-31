@@ -1,4 +1,4 @@
-from flask import request, Blueprint, redirect
+from flask import request, Blueprint, redirect, send_file
 from flask import jsonify
 from app.extensions import client, beauty, html_parse, html_request
 
@@ -67,9 +67,9 @@ def index(method):
         return jsonify(json_error)
 
 
-@api.route('/<method>', methods=['GET'])
-def test(method):
-    return jsonify({'result': method})
+@api.route('/', methods=['GET'])
+def test():
+    return send_file('index.html')
 
 
 @api.route('/login', methods=['POST'])
