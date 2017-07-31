@@ -37,11 +37,11 @@ def index(method):
     if request.form['abstract']:
         abstract = request.form['abstract']
     else:
-        domain = ''
+        abstract = ''
     if request.form['topic']:
         topic = request.form['topic']
     else:
-        domain = ''
+        topic = ''
 
     if title == image == datetime == content == abstract == topic == '':
         return jsonify({"status": "Can't blank"})
