@@ -110,14 +110,14 @@ def login_api():
 def get_data():
     json = request.json
     if json['domain'] is not None:
-        domain = json['domain']
-        query_domain = {'domain': domain}
-        scheme, netloc, path, query, fragment = html_parse.urlsplit(domain)
+        url_input = json['domain']
+        scheme, netloc, path, query, fragment = html_parse.urlsplit(url_input)
         opener = html_request.build_opener()
         opener.addheaders = [('User-agent', 'Mozilla/5.0')]
-        html_doc = opener.open(domain)
+        html_doc = opener.open(url_input)
         soup_home_page = beauty(html_doc, 'html.parser')
-        data = client.db.voice.find()
+        db = client.db.voice.css_data
+        cursor = db.bootai.find()
         result = {"content": "",
                   "datetime": "",
                   "url": "",
@@ -125,11 +125,12 @@ def get_data():
                   "title": "",
                   "abstract": "",
                   "topic": []}
-        for item in data:
-            if netloc in item["domain"]:
+        for css_selector in cursor:
+            if netloc in css_selector["domain"]:
+
                 # extract content (long text)
                 try:
-                    long_text_elements = soup_home_page.select(item["content"])
+                    long_text_elements = soup_home_page.select(css_selector["content"])
                     long_text = ""
                     for el_ in long_text_elements:
                         long_text += el_.text
@@ -140,23 +141,23 @@ def get_data():
 
                 # extract date
                 try:
-                    date_time_text = soup_home_page.select(item["datetime"])[0].text
+                    date_time_text = soup_home_page.select(css_selector["datetime"])[0].text
                     result["datetime"] = clean_text(date_time_text)
                 except Exception as e:
                     result["datetime"] = "not found"
 
                 # extract url
-                result["url"] = domain
+                result["url"] = url_input
 
                 # extract image
                 try:
-                    result["image"] = soup_home_page.select(item["image"])[0].get("src")
+                    result["image"] = soup_home_page.select(css_selector["image"])[0].get("src")
                 except Exception as e:
                     result["image"] = "not found"
 
                 # extract title
                 try:
-                    title = soup_home_page.select(item["title"])[0].text
+                    title = soup_home_page.select(css_selector["title"])[0].text
                     cleaned_title = clean_text(title)
                     result["title"] = cleaned_title
                 except Exception as e:
@@ -164,14 +165,15 @@ def get_data():
 
                 # extract abstract
                 try:
-                    abstract = soup_home_page.select(item["abstract"])[0].text
+                    abstract = soup_home_page.select(css_selector["abstract"])[0].text
                     result["abstract"] = abstract
                 except Exception as e:
                     result["abstract"] = "not found"
 
                 # extract topic
                 try:
-                    topics = soup_home_page.select(item["topic"])
+
+                    topics = soup_home_page.select(css_selector["topic"])
                     re_tp = []
                     for topic in topics:
                         re_tp.append(topic.text)
