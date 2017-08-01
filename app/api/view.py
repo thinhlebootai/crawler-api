@@ -171,7 +171,12 @@ def get_data():
 
                 # extract topic
                 try:
-                    result["topic"] = soup_home_page.select(item["topic"])
+
+                    topics = soup_home_page.select(item["topic"])
+                    re_tp = []
+                    for topic in topics:
+                        re_tp.append(topic.text)
+                    result["topic"] = re_tp
                 except:
                     result["topic"] = "not found"
 
