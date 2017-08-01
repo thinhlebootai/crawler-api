@@ -46,13 +46,15 @@ def index(method):
     if title == image == datetime == content == abstract == topic == '':
         return jsonify({"status": "Can't blank"})
     else:
+        list_topic = []
+        list_topic.append(topic)
         posts = {
             "domain": domain,
             "title": title,
             "image": image,
             "datetime": datetime,
             "content": content,
-            "topic": [topic],
+            "topic": list_topic,
             "abstract": abstract
         }
 
@@ -171,7 +173,6 @@ def get_data():
 
                 # extract topic
                 try:
-
                     topics = soup_home_page.select(item["topic"])
                     re_tp = []
                     for topic in topics:
