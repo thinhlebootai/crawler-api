@@ -116,8 +116,7 @@ def get_data():
         opener.addheaders = [('User-agent', 'Mozilla/5.0')]
         html_doc = opener.open(url_input)
         soup_home_page = beauty(html_doc, 'html.parser')
-        db = client.db.voice.css_data
-        cursor = db.bootai.find()
+        cursor = client.db.bootai.find()
         result = {"content": "",
                   "datetime": "",
                   "url": "",
@@ -192,3 +191,4 @@ def clean_text(text):
     result_ = "".join(text_new)
     result_.rstrip()
     return result_
+
