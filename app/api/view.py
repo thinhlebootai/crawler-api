@@ -52,7 +52,7 @@ def index(method):
             "image": image,
             "datetime": datetime,
             "content": content,
-            "topic": topic,
+            "topic": [topic],
             "abstract": abstract
         }
 
