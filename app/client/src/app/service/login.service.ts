@@ -9,6 +9,7 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class ShareService {
+  public loginStatus: boolean = false;
   constructor(private http:Http) {
     this.http = http;
   }
@@ -26,4 +27,9 @@ export class ShareService {
   public getAll(): Observable<any> {
     return this.http.get(`${AppConfig.getAll}/bootai`, AppConfig.getExtHeader());
   }
+
+  public setLoginStatus(status) {
+    this.loginStatus = status;
+  }
+
 }

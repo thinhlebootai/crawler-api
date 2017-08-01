@@ -3,6 +3,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { ShareService } from '../service/login.service';
+import {Router} from "@angular/router";
 @Component({
   selector: 'home',
   styleUrls: [ './home.component.css' ],
@@ -15,7 +16,11 @@ export class HomeComponent implements OnInit {
   public content: string;
   public datetime: string;
   public image: string;
-  constructor(private _shareSerice: ShareService) {}
+  constructor(private _shareSerice: ShareService, private _router: Router) {
+    if (!this._shareSerice.loginStatus){
+      // this._router.navigateByUrl('**');
+    }
+  }
 
 
   public ngOnInit() { }
