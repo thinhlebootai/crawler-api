@@ -36,6 +36,9 @@ import {ShareService} from "./service/login.service";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ListingComponent} from "./listing/listing.component";
 import { NgxDatatableModule} from '@swimlane/ngx-datatable';
+import { NgProgressModule } from 'ngx-progressbar';
+import { NgProgressBrowserXhr } from 'ngx-progressbar';
+import { BrowserXhr } from '@angular/http';
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
@@ -69,6 +72,7 @@ type StoreType = {
     HttpModule,
     NgbModule.forRoot(),
     NgxDatatableModule,
+    NgProgressModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   /**
@@ -78,6 +82,7 @@ type StoreType = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     ShareService,
+    { provide: BrowserXhr, useClass: NgProgressBrowserXhr } ,
   ]
 })
 export class AppModule {

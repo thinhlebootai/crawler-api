@@ -17,3 +17,16 @@ a.active {
 .p-n {
   padding: 0 !important;
 }
+
+
+.b-b-md {
+  border-bottom: 1px solid #fff;
+}
+
+.m-b-md {
+  margin-bottom: 15px;
+}
+
+.m-t-md {
+  margin-top: 15px;
+}

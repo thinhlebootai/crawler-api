@@ -1,51 +1,50 @@
-<div>
-  <h1 >Demo crawler</h1>
-  <div>
+<div class="col-md-8 offset-2">
+  <h1 class="b-b-md">Demo crawler</h1>
+  <div >
     <h4>Input url</h4>
-    <div class="col-md-4 p-n" style="display: flex;">
-        <input class="form-control col-md-8" #domain
+    <div class="col-md-12 p-n b-b-md m-b-md" style="display: flex;">
+        <input class="form-control col-md-10 m-b-md" #domain
           placeholder="Submit your url here..."
           autofocus>
-        <button (click)="send(domain.value)" class="btn btn-primary col-md-4">Submit Value</button>
+        <button (click)="send(domain.value)" class="btn btn-primary col-md-2 m-b-md">Submit Value</button>
     </div>
     <div class="content ">
-      <div>
-        <h4>Title</h4>
+      <div class="b-b-md m-t-md">
+        <h4>Title: </h4>
         <div>
           {{ title }}
         </div>
       </div>
-      <div>
-        <h4>Abstract</h4>
+      <div class="b-b-md m-t-md">
+        <h4>Abstract: </h4>
         <div>
           {{ abstract }}
         </div>
       </div>
-      <div>
-        <h4>Topic</h4>
+      <div class="b-b-md m-t-md">
+        <h4>Topic: </h4>
         <div>
           {{ topic }}
         </div>
       </div>
-      <div>
-        <h4>Content</h4>
+      <div class="b-b-md m-t-md">
+        <h4>Content: </h4>
         <div>
           {{ content }}
         </div>
       </div>
-      <div>
-        <h4>Datetime</h4>
-        <div>
-          {{ datetime }}
-        </div>
-      </div>
-      <div>
-        <h4>image</h4>
+      <div class="b-b-md m-t-md">
+        <h4>Image: </h4>
         <div>
           <img src="{{image}}" alt="">
         </div>
       </div>
-
+      <div class="b-b-md m-t-md">
+        <h4>Datetime: </h4>
+        <div>
+          {{ datetime }}
+        </div>
+      </div>
 
     </div>
   </div>

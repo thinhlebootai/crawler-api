@@ -18,7 +18,8 @@ import { AppState } from './app.service';
   styleUrls: [
     './app.component.css'
   ],
-  template: `    
+  template: `
+    <ng-progress></ng-progress>
     <main>
       <router-outlet></router-outlet>
     </main>
@@ -34,7 +35,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   public ngOnInit() {
-    console.log('Initial App State', this.appState.state);
+
   }
 
 }
