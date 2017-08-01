@@ -6,7 +6,7 @@ import {ListingComponent} from "./listing/listing.component";
 
 export const ROUTES: Routes = [
   { path: '',      component: LoginComponent },
-  { path: 'home',      component: HomeComponent },
+  { path: 'demo',      component: HomeComponent },
   { path: 'list',    component: ListingComponent },
   { path: '**',    component: NoContentComponent },
 ];

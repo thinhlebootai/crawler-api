@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         try{
           let json = JSON.parse(res['_body']);
           if (json.result == 'success') {
-            this._router.navigateByUrl('/home');
+            this._router.navigateByUrl('/demo');
           }
         } catch (ex) {
           // pass
