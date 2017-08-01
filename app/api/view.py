@@ -46,15 +46,13 @@ def index(method):
     if title == image == datetime == content == abstract == topic == '':
         return jsonify({"status": "Can't blank"})
     else:
-        list_topic = []
-        list_topic.append(topic)
         posts = {
             "domain": domain,
             "title": title,
             "image": image,
             "datetime": datetime,
             "content": content,
-            "topic": list_topic,
+            "topic": topic,
             "abstract": abstract
         }
 
