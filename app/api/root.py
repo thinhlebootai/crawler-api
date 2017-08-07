@@ -4,7 +4,7 @@ from app.extensions import client
 root = Blueprint('', __name__)
 
 
-@root.route('/valeo/chatbot/client/v1', methods=['GET'])
+@root.route('/', methods=['GET'])
 def index():
     return send_file('./client/dist/index.html')
 
