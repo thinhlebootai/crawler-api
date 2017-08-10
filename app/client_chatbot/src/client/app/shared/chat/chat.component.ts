@@ -29,11 +29,7 @@ import { Http, Headers, Response } from '@angular/http';
 
 export class ChatComponent {
   state: string = 'inactive';
-
-  constructor(private chat: ChatService, private renderer: Renderer) {};
-
   @ViewChild('conversation') conversationContainer: ElementRef;
-
   newName: string = '';
   errorMessage: string;
   names: any[] = [];
@@ -42,13 +38,25 @@ export class ChatComponent {
   result:any;
   newQuestion: string;
   listOfQuestions: string[] = [];
-  listOfResults: string[] = []; 
+  listOfResults: string[] = [];
   links: string[] = [];
   happyState: string;
   evenState: string;
   sadState: string;
   session: boolean = false;
   link: any;
+  options: string[] = [];
+  option: any;
+  location: string;
+  ipAdress: string;
+
+  constructor(private chat: ChatService, private renderer: Renderer) {
+      this.chat.getCurrentIpLocation().subscribe((res)=>{
+        this.location = res.city;
+        this.ipAdress = res.ip;
+      });
+  };
+
   askQuestion(value: any) {
     value.newQuestion = value.newQuestion.trim();
     if(value.newQuestion) { 
@@ -60,6 +68,7 @@ export class ChatComponent {
         .subscribe((res: any) => {
           const json = JSON.parse(res['_body']);
           this.result = json.response;
+          this.option = json.options;
           console.log(this.result);
           var myRegexp = /https.*$/g;
           this.link = myRegexp.exec(this.result);
@@ -70,8 +79,51 @@ export class ChatComponent {
           } else {
             this.links.push(null);
           }
+          try {
+              if (this.option.length > 0) {
+                  this.options.push(this.option);
+              } else {
+                  this.options.push(null);
+              }
+          }
+          catch (ex) {}
           this.listOfResults.push(this.result);
-          console.log(this.link);
+          setTimeout(() => this.scrollBottom());
+        } , (err: any) => {
+          console.log(err); this.listOfResults.push("Sorry, but there is connection problem. Try again later.")
+      });
+      }
+  }
+
+  sendOptions(item: any) {
+    if(item) {
+      this.state = (this.state === 'inactive' ? 'active' : 'inactive');
+      this.listOfQuestions.push(item.value);
+      setTimeout(() => this.scrollBottom());
+      this.chat.send(item.key)
+        .subscribe((res: any) => {
+          const json = JSON.parse(res['_body']);
+          this.result = json.response;
+          this.option = json.options;
+          console.log(this.result);
+          var myRegexp = /https.*$/g;
+          this.link = myRegexp.exec(this.result);
+
+          this.result = this.result.replace(/https.*$/g, "");
+          if(this.link) {
+            this.links.push(this.link);
+          } else {
+            this.links.push(null);
+          }
+          try {
+              if (this.option.length > 0) {
+                  this.options.push(this.option);
+              } else {
+                  this.options.push(null);
+              }
+          }
+          catch (ex) {}
+          this.listOfResults.push(this.result);
           setTimeout(() => this.scrollBottom());
         } , (err: any) => {
           console.log(err); this.listOfResults.push("Sorry, but there is connection problem. Try again later.")

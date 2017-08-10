@@ -31,6 +31,15 @@ export class AngularChatBotService extends ChatService {
 		return this.http.get(Config.API + '/feedback',
       		{ headers: headers });
 	}
+
+	 public getCurrentIpLocation(): Observable<any> {
+        return this.http.get('https://ipinfo.io/json')
+        .map((res): Response => res.json())
+        .catch(error => {
+            console.log(error);
+            return Observable.throw(error.json());
+        });
+    }
 }
 
 

@@ -1,6 +1,7 @@
 <div class="chat">
-	<div class="header">
-		<p>Demo chatbot</p>
+	<div class="header" style="display: flex;">
+		<p class="col-md-6">Hi. Your location is: {{location}}</p>
+		<p class="col-md-6 text-right">{{ipAdress}}</p>
 	</div>
 	<div class="container">
 		<div class="conversation" #conversation>
@@ -17,9 +18,12 @@
 				<div *ngIf = 'listOfResults[k]' class ="result">{{ listOfResults[k] }}
 					
 					<a *ngIf = 'links[k]' [attr.href]="links[k]" target="_blank"> Find more here </a>
+                    <div *ngIf = 'options[k]' class="btn-clear-fix">
+                            <button  *ngFor = 'let item of options[k]' (click)="sendOptions(item)" class="btn btn-primary">
+                                {{item.value}}
+                            </button>
+                    </div>
 				</div>
-				
-				
 			</div>
 		</div>
 		<div class="question">

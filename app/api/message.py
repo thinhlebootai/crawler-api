@@ -13,6 +13,13 @@ def send_message():
         'question': fields.String()
     }
     json_data = parser.parse(params)
-
-    return jsonify({"response": json_data.get('question')})
-
+    message = json_data.get('question')
+    list_options = []
+    if message == '1':
+        list_options = [
+            {"key": "1", "value": "Options 1"},
+            {"key": "2", "value": "Options 2"},
+            {"key": "3", "value": "Options 3"}
+        ]
+        return jsonify({"response": "Select options below", "options": list_options})
+    return jsonify({"response": json_data.get('question'), "options": list_options})
