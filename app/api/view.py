@@ -1,6 +1,7 @@
-from flask import request, Blueprint, redirect, send_file
+from flask import request, Blueprint, send_file
 from flask import jsonify
 from app.extensions import client, beauty, html_parse, html_request
+from marshmallow import fields, validate
 
 api = Blueprint('api', __name__)
 
@@ -192,3 +193,11 @@ def clean_text(text):
     result_.rstrip()
     return result_
 
+
+@api.route('/send', methods=['POST'])
+def send_message():
+    params = {
+
+    }
+    content = request.json
+    return content

@@ -18,6 +18,7 @@ class ProdConfig(Config):
     HOST = '0.0.0.0'
     MONGO_DBNAME = 'css_data'
     TEMPLATES_AUTO_RELOAD = False
+    SERVER_MESSAGE = 'http://localhost:8890/api/v1'
 
 
 class DevConfig(Config):
@@ -31,4 +32,5 @@ class DevConfig(Config):
     MONGO_DBNAME = 'css_data'
     TEMPLATES_AUTO_RELOAD = True
     MONGO_HOST = '46.101.137.23'
+    SERVER_MESSAGE = 'http://localhost:8890/api/v1'
 
