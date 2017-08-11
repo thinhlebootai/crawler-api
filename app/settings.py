@@ -24,7 +24,7 @@ class ProdConfig(Config):
             'id': 'job1',
             'func': 'app.app:start_jobs',
             'trigger': 'interval',
-            'seconds': 2
+            'hours': 1
         }
     ]
 
