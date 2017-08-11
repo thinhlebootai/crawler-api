@@ -7,17 +7,15 @@ from flask_pymongo import PyMongo
 from bs4 import BeautifulSoup
 from urllib import parse, request
 from webargs.flaskparser import FlaskParser
-from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.jobstores.mongodb import MongoDBJobStore
+from flask_apscheduler import APScheduler
 from pytz import utc
 
+scheduler = APScheduler()
 parser = FlaskParser()
 client = PyMongo()
 beauty = BeautifulSoup
 html_parse = parse
 html_request = request
-mongodb_jobs_store = MongoDBJobStore
-background_scheduler = BackgroundScheduler
 utc_time = utc
 
 

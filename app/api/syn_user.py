@@ -32,6 +32,14 @@ def get_all():
     return jsonify({'users': list_user})
 
 
+@api.route('/<id>', methods=['GET'])
+def get_one(id):
+    data = client.db.users.find({"_id": id})
+    user = list(data)
+    if user.count() > 0:
+        return jsonify({'user': user[0]})
+
+
 @api.route('/add', methods=['POST'])
 def add_attr():
     params = {

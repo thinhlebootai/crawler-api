@@ -2,7 +2,7 @@
 
 from flask import Flask
 from .settings import ProdConfig, DevConfig
-from .extensions import client, background_scheduler
+from app.extensions import client, scheduler
 from .api.view import api
 from .api.root import root
 from .api import message
@@ -10,10 +10,11 @@ from .api import syn_user
 from flask_cors import CORS
 from flask_sslify import SSLify
 from .utils import request_post, request_get
+from bson import ObjectId
 import requests
 
 
-def create_app(config_object=DevConfig):
+def create_app(config_object):
     app = Flask(__name__, static_url_path="", static_folder="./client_chatbot/dist/dev",
                 template_folder="./client_chatbot/dist/dev")
     # SSLify(app)
@@ -25,9 +26,10 @@ def create_app(config_object=DevConfig):
 
 
 def register_extensions(app):
+    client.app = app
     client.init_app(app)
-    start_jobs()
-    return None
+    scheduler.init_app(app)
+    scheduler.start()
 
 
 def register_blueprints(app):
@@ -35,17 +37,21 @@ def register_blueprints(app):
     app.register_blueprint(root, url_prefix='/valeo/chatbot/client/v2')
     app.register_blueprint(message.api)
     app.register_blueprint(syn_user.api)
-    return None
 
 
 def start_jobs():
-    scheduler = background_scheduler()
-    scheduler.add_job(syn_user_job, 'interval', minutes=2)
-    scheduler.start()
-
-
-def syn_user_job():
-    print('success')
+    with client.app.app_context():
+        db = client.db.users
+        db.drop()
+        list_user = []
+        res = requests.post('https://staging-api.valeo-app.de/ki/users', headers={
+            'Token': 'cPMpVGarWUUmRG6MpadXV54Si3Sh26K6kAf9oYjM203ABBAB6NY8TKvWwTTx3661s36UCXD7g2cAVx1HPDTW7AWWXZ'})
+        user = res.json()
+        for item in user['users']:
+            item['_id'] = str(ObjectId())
+            list_user.append(item)
+        db.insert(list_user)
+        print('success')
 
 
 

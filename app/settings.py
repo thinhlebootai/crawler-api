@@ -16,9 +16,19 @@ class ProdConfig(Config):
     DEBUG = False
     DEBUG_TB_ENABLED = False  # Disable Debug toolbar
     HOST = '0.0.0.0'
-    MONGO_DBNAME = 'css_data'
+    MONGO_DBNAME = 'chatbot'
     TEMPLATES_AUTO_RELOAD = False
     SERVER_MESSAGE = 'http://localhost:8890/api/v1'
+    JOBS = [
+        {
+            'id': 'job1',
+            'func': 'app.app:start_jobs',
+            'trigger': 'interval',
+            'seconds': 2
+        }
+    ]
+
+    SCHEDULER_API_ENABLED = True
 
 
 class DevConfig(Config):
@@ -33,4 +43,14 @@ class DevConfig(Config):
     TEMPLATES_AUTO_RELOAD = True
     MONGO_HOST = '46.101.137.23'
     SERVER_MESSAGE = 'http://localhost:8890/api/v1'
+    JOBS = [
+        {
+            'id': 'job1',
+            'func': 'app.app:start_jobs',
+            'trigger': 'interval',
+            'hours': 1
+        }
+    ]
+
+    SCHEDULER_API_ENABLED = True
 

@@ -12,3 +12,4 @@ webargs
 requests
 apscheduler
 pytz
+Flask-APScheduler
