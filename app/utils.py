@@ -1,5 +1,6 @@
 import requests
 from flask import jsonify
+from .extensions import parser
 
 
 def request_get(url, params=None):
@@ -24,3 +25,7 @@ def request_post(url, params=None):
         code = response.status_code
         response = response.json()
         return jsonify(response), code
+
+
+def parse_req(argmap):
+    return parser.parse(argmap)

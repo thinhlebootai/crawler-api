@@ -29,7 +29,7 @@ class DevConfig(Config):
     DEBUG_TB_ENABLED = True
     ASSETS_DEBUG = True  # Don't bundle/minify static assets
     CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
-    MONGO_DBNAME = 'css_data'
+    MONGO_DBNAME = 'chatbot'
     TEMPLATES_AUTO_RELOAD = True
     MONGO_HOST = '46.101.137.23'
     SERVER_MESSAGE = 'http://localhost:8890/api/v1'
