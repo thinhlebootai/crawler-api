@@ -3,7 +3,6 @@ flask_pymongo
 flask_cors
 flask_sslify
 bs4
-bson
 pymongo
 urllib3
 livereload
