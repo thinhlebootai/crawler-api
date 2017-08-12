@@ -6,7 +6,7 @@ from app.extensions import client, scheduler
 from .api.view import api
 from .api.root import root
 from .api import message
-from .api import syn_user
+from .api import user
 from flask_cors import CORS
 from flask_sslify import SSLify
 from .utils import request_post, request_get
@@ -36,7 +36,7 @@ def register_blueprints(app):
     app.register_blueprint(api, url_prefix='/api')
     app.register_blueprint(root, url_prefix='/valeo/chatbot/client/v2')
     app.register_blueprint(message.api)
-    app.register_blueprint(syn_user.api)
+    app.register_blueprint(user.api)
 
 
 def start_jobs():
@@ -51,7 +51,6 @@ def start_jobs():
             item['_id'] = str(ObjectId())
             list_user.append(item)
         db.insert(list_user)
-        print('success')
 
 
 
