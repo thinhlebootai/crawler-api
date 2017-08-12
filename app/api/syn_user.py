@@ -34,10 +34,11 @@ def get_all():
 
 @api.route('/<id>', methods=['GET'])
 def get_one(id):
-    data = client.db.users.find({"_id": id})
-    user = list(data)
-    if user.count() > 0:
-        return jsonify({'user': user[0]})
+    data = client.db.users.find_one({"_id": id})
+    if data and data['_id'] is not None:
+        return jsonify({'user': data})
+    else:
+        return jsonify({'error': 'not found'})
 
 
 @api.route('/add', methods=['POST'])
@@ -58,32 +59,34 @@ def add_attr():
         'allergie': fields.List(fields.String()),
         'sport': fields.List(fields.String())
     }
-    json_data = parse_req(params)
+    try:
+        json_data = parse_req(params)
 
-    new_user = dict(
-        name=json_data.get('name'),
-        id=json_data.get('id'),
-        lname=json_data.get('lname'),
-        bday=json_data.get('bday'),
-        age=json_data.get('age'),
-        height=json_data.get('height'),
-        weight=json_data.get('weight'),
-        home=json_data.get('home'),
-        temp_location=json_data.get('temp_location'),
-        allergie=json_data.get('allergie'),
-        image=json_data.get('image'),
-        sport=json_data.get('sport'),
-        about=json_data.get('about')
-    )
+        new_user = dict(
+            name=json_data.get('name'),
+            id=json_data.get('id'),
+            lname=json_data.get('lname'),
+            bday=json_data.get('bday'),
+            age=json_data.get('age'),
+            height=json_data.get('height'),
+            weight=json_data.get('weight'),
+            home=json_data.get('home'),
+            temp_location=json_data.get('temp_location'),
+            allergie=json_data.get('allergie'),
+            image=json_data.get('image'),
+            sport=json_data.get('sport'),
+            about=json_data.get('about')
+        )
+    except:
+        return jsonify({'error': 'check json format'})
 
     new_user['_id'] = str(ObjectId())
-
     _id = client.db.users.insert(new_user)
     return jsonify({'success': str(_id)})
 
 
-@api.route('/edit/<id>', methods=['PUT'])
-def edit_user(id):
+@api.route('/edit/<_id>', methods=['PUT'])
+def edit_user(_id):
     params = {
         'id': fields.Number(),
         'name': fields.String(),
@@ -101,7 +104,7 @@ def edit_user(id):
         'sport': fields.List(fields.String())
     }
     json_data = parse_req(params)
-    query = {"_id": id}
+    query = {"_id": _id}
 
     data = client.db.users.find(query)
     if not data:
@@ -114,7 +117,9 @@ def edit_user(id):
         if k in json_data:
             update_data[k] = json_data[k]
 
-    client.db.users.update(query, {'$set': update_data})
-
-    return jsonify({'result': str('success')})
+    try:
+        client.db.users.update(query, {'$set': update_data})
+        return jsonify({'result': str('success')})
+    except:
+        return jsonify({'error': 'update failed'})
 
