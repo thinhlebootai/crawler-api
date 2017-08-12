@@ -1,16 +1,14 @@
 
 Quickstart
 ----------
-    install python 2.7.13, 
-    $ apt-get install python-dev build-essential
 
-    $ git clone https://github.com/thinhlx1993/css-selector-backend
+    $ git clone https://github.com/thinhlebootai/crawler-api.git
     
-    $ cd css-selector-backend
+    $ cd crawler-api
     
     $ virtualenv env
     
-    $ source env/bin/activate 
+    Linux: source env/bin/activate or Windows: source env/Scripts/activate
     
     $ pip install -r requirements.txt
 
