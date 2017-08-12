@@ -103,23 +103,23 @@ def edit_user(_id):
         'allergie': fields.List(fields.String()),
         'sport': fields.List(fields.String())
     }
-    json_data = parse_req(params)
-    query = {"_id": _id}
-
-    data = client.db.users.find(query)
-    if not data:
-        return jsonify({'success': "cant not find user with _id"})
-
-    keys = ['name', 'lname', 'bday', 'age', 'height', 'weight', 'height', 'about', 'home', 'image', 'temp_location',
-            'verified', 'allergie', 'sport']
-    update_data = {}
-    for k in keys:
-        if k in json_data:
-            update_data[k] = json_data[k]
-
     try:
-        client.db.users.update(query, {'$set': update_data})
-        return jsonify({'result': str('success')})
+        json_data = parse_req(params)
+        query = {"_id": _id}
+
+        data = client.db.users.find(query)
+        if not data:
+            return jsonify({'success': "cant not find user with _id"})
+
+        keys = ['name', 'lname', 'bday', 'age', 'height', 'weight', 'height', 'about', 'home', 'image', 'temp_location',
+                'verified', 'allergie', 'sport']
+        update_data = {}
+        for k in keys:
+            if k in json_data:
+                update_data[k] = json_data[k]
     except:
-        return jsonify({'error': 'update failed'})
+        return jsonify({'error': 'check json format'})
+
+    client.db.users.update(query, {'$set': update_data})
+    return jsonify({'result': str('success')})
 
