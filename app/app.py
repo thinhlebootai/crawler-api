@@ -47,10 +47,9 @@ def start_jobs():
             'Token': 'cPMpVGarWUUmRG6MpadXV54Si3Sh26K6kAf9oYjM203ABBAB6NY8TKvWwTTx3661s36UCXD7g2cAVx1HPDTW7AWWXZ'})
         user = res.json()
         for item in user['users']:
-            item['_id'] = str(ObjectId())
-            list_user.append(item)
-        db.insert(list_user)
-
-
-
+            temp = db.find_one({"id": item['id']})
+            if temp is None:
+                item['_id'] = str(ObjectId())
+                db.insert_one(item)
+                print('insert')
 
