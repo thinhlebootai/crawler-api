@@ -15,8 +15,8 @@ import requests
 
 
 def create_app(config_object):
-    app = Flask(__name__, static_url_path="", static_folder="./client_chatbot/dist/dev",
-                template_folder="./client_chatbot/dist/dev")
+    app = Flask(__name__, static_url_path="", static_folder="./client/dist/dev",
+                template_folder="./client/dist/dev")
     # SSLify(app)
     CORS(app)
     app.config.from_object(config_object)

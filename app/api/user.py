@@ -123,3 +123,14 @@ def edit_user(_id):
     client.db.users.update(query, {'$set': update_data})
     return jsonify({'result': str('success')})
 
+
+@api.route('/get_list_user_id', methods=['GET'])
+def get_list_user_id():
+    data = client.db.users.find()
+    if not data:
+        return jsonify({'success': "cant not find user"})
+    user_id = []
+    for k in list(data):
+        user_id.append(k['id'])
+
+    return jsonify({'result': user_id})
