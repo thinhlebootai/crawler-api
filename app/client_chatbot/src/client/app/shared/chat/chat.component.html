@@ -5,7 +5,7 @@
 	</div>
 	<div class="container">
 		<div class="conversation" #conversation>
-			<div class="result">Hi. Can i help you?</div>
+			<div class="result">{{ initMsg}}</div>
 			<div *ngFor="let question of listOfQuestions; let k = index; let l = last" class="section">
 				<div *ngIf = "question" class="askedQuestion">{{ question }}</div>
 				<div *ngIf = "!listOfResults[k] && question" class="result" >

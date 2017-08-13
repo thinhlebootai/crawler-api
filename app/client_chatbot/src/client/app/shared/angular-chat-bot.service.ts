@@ -7,6 +7,7 @@ import { GlobalConfig } from './global.config';
 
 @Injectable()
 export class AngularChatBotService extends ChatService {
+	converId: string;
 	constructor(private http: Http) {
 		super();
 	}
@@ -40,6 +41,37 @@ export class AngularChatBotService extends ChatService {
             return Observable.throw(error.json());
         });
     }
+
+    public init(location: string): Observable<any> {
+		var headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		 return this.http.post('https://zenzai.synapse.boot.ai/api/v1',
+			 JSON.stringify({"user_id":123, "message":"BMI", "location": location}),
+			 {headers: headers})
+        .map((res): Response => res.json())
+        .catch(error => {
+            console.log(error);
+            return Observable.throw(error.json());
+        });
+	}
+
+	public sendMessage(message: string): Observable<any> {
+		var headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		 return this.http.post('https://zenzai.synapse.boot.ai/api/v1',
+			 JSON.stringify({"conversation_id": this.converId, "message":message}),
+			 {headers: headers})
+        .map((res): Response => res.json())
+        .catch(error => {
+            console.log(error);
+            return Observable.throw(error.json());
+        });
+	}
+
+	public setConverID(id: string): boolean{
+		this.converId = id;
+		return true;
+	}
 }
 
 

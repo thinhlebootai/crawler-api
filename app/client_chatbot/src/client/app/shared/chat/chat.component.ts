@@ -49,12 +49,18 @@ export class ChatComponent {
   option: any;
   location: string;
   ipAdress: string;
+  initMsg: string;
 
   constructor(private chat: ChatService, private renderer: Renderer) {
       this.chat.getCurrentIpLocation().subscribe((res)=>{
         this.location = res.city;
         this.ipAdress = res.ip;
       });
+      this.chat.init(this.location).subscribe((res) => {
+         this.initMsg = res.message;
+         this.chat.setConverID(res.conversation_id);
+      });
+
   };
 
   askQuestion(value: any) {
@@ -64,29 +70,32 @@ export class ChatComponent {
       this.listOfQuestions.push(this.newQuestion);
       this.newQuestion = '';
       setTimeout(() => this.scrollBottom());
-      this.chat.send(value.newQuestion)
-        .subscribe((res: any) => {
-          const json = JSON.parse(res['_body']);
-          this.result = json.response;
+      this.chat.sendMessage(value.newQuestion)
+        .subscribe((json: any) => {
+          this.result = json.message;
           this.option = json.options;
           console.log(this.result);
           var myRegexp = /https.*$/g;
           this.link = myRegexp.exec(this.result);
-
-          this.result = this.result.replace(/https.*$/g, "");
-          if(this.link) {
-            this.links.push(this.link);
-          } else {
-            this.links.push(null);
-          }
-          try {
-              if (this.option.length > 0) {
-                  this.options.push(this.option);
+          if (this.result !== '') {
+              this.result = this.result.replace(/https.*$/g, "");
+              if(this.link) {
+                this.links.push(this.link);
               } else {
-                  this.options.push(null);
+                this.links.push(null);
               }
+              try {
+                  if (this.option.length > 0) {
+                      this.options.push(this.option);
+                  } else {
+                      this.options.push(null);
+                  }
+              }
+              catch (ex) {}
+          } else {
+              this.result = 'i can\'t understand you'
           }
-          catch (ex) {}
+
           this.listOfResults.push(this.result);
           setTimeout(() => this.scrollBottom());
         } , (err: any) => {
