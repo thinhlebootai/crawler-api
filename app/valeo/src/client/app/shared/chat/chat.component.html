@@ -1,0 +1,40 @@
+<div class="chat">
+	<div class="header" style="display: flex;">
+		<p class="col-md-6">Hi. Your location is: {{location}}</p>
+		<p class="col-md-6 text-right">
+      <!--<select class="form-control" (change)="setUser($event.target.value)">-->
+        <!--<option  *ngFor="let item of listUser" value="{{item.id}}">{{ item.name }} {{item.lname}}</option>-->
+      <!--</select>-->
+    </p>
+	</div>
+	<div class="container">
+		<div class="conversation" #conversation>
+			<div class="result">{{ initMsg}}</div>
+			<div *ngFor="let question of listOfQuestions; let k = index; let l = last" class="section">
+				<div *ngIf = "question" class="askedQuestion">{{ question }}</div>
+				<div *ngIf = "!listOfResults[k] && question" class="result" >
+					<div class="typing-container">
+					    <div class="typing-indicator"></div>
+					    <div class="typing-indicator"></div>
+					    <div class="typing-indicator"></div>
+					</div>
+				</div>
+				<div *ngIf = 'listOfResults[k]' class ="result">{{ listOfResults[k] }}
+
+					<a *ngIf = 'links[k]' [attr.href]="links[k]" target="_blank"> Find more here </a>
+                    <div *ngIf = 'options[k]' class="btn-clear-fix">
+                            <button  *ngFor = 'let item of options[k]' (click)="sendOptions(item)" class="btn btn-primary">
+                                {{item.value}}
+                            </button>
+                    </div>
+				</div>
+			</div>
+		</div>
+		<div class="question">
+				<form #questions ="ngForm" >
+		  			<input autocomplete="off" [(ngModel)]="newQuestion" name="newQuestion" placeholder="Question" autofocus>
+		  			<button class="ask" type="submit" (click)="askQuestion(questions.value)">Ask</button>
+		  		</form>
+		</div>
+	</div>
+</div>

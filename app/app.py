@@ -4,7 +4,7 @@ from flask import Flask
 from .settings import ProdConfig, DevConfig
 from app.extensions import client, scheduler
 from .api.view import api
-from .api.root import root
+from .api import root
 from .api import message
 from .api import user
 from flask_cors import CORS
@@ -15,8 +15,8 @@ import requests
 
 
 def create_app(config_object):
-    app = Flask(__name__, static_url_path="", static_folder="./client/dist/prod",
-                template_folder="./client/dist/prod")
+    app = Flask(__name__, static_url_path="", static_folder="./valeo/dist/prod",
+                template_folder="./valeo/dist/prod")
     # SSLify(app)
     CORS(app)
     app.config.from_object(config_object)
@@ -34,7 +34,7 @@ def register_extensions(app):
 
 def register_blueprints(app):
     app.register_blueprint(api, url_prefix='/api')
-    app.register_blueprint(root, url_prefix='/')
+    app.register_blueprint(root.api)
     app.register_blueprint(message.api)
     app.register_blueprint(user.api)
 
@@ -42,7 +42,6 @@ def register_blueprints(app):
 def start_jobs():
     with client.app.app_context():
         db = client.db.users
-        db.drop()
         list_user = []
         res = requests.post('https://staging-api.valeo-app.de/ki/users', headers={
             'Token': 'cPMpVGarWUUmRG6MpadXV54Si3Sh26K6kAf9oYjM203ABBAB6NY8TKvWwTTx3661s36UCXD7g2cAVx1HPDTW7AWWXZ'})
