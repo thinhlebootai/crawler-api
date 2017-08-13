@@ -6,7 +6,7 @@ root = Blueprint('', __name__)
 
 @root.route('/', methods=['GET'])
 def index():
-    return send_file('./client_chatbot/dist/dev/index.html')
+    return send_file('./client/dist/prod/index.html')
 
 
 

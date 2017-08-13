@@ -15,8 +15,8 @@ import requests
 
 
 def create_app(config_object):
-    app = Flask(__name__, static_url_path="", static_folder="./client/dist/dev",
-                template_folder="./client/dist/dev")
+    app = Flask(__name__, static_url_path="", static_folder="./client/dist/prod",
+                template_folder="./client/dist/prod")
     # SSLify(app)
     CORS(app)
     app.config.from_object(config_object)
@@ -34,7 +34,7 @@ def register_extensions(app):
 
 def register_blueprints(app):
     app.register_blueprint(api, url_prefix='/api')
-    app.register_blueprint(root, url_prefix='/valeo/chatbot/client/v2')
+    app.register_blueprint(root, url_prefix='/')
     app.register_blueprint(message.api)
     app.register_blueprint(user.api)
 
